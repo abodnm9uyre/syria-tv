@@ -7,442 +7,472 @@
 <title>GOL TV</title>
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet"/>
 <style>
-    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; -webkit-tap-highlight-color: transparent; }
-    body { background-color: #ffffff; color: #333; transition: background-color 0.3s, color 0.3s; user-select: none; }
-    body.dark { background-color: #0d1b2a; color: #ffffff; }
-    header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 16px;
-  background-color: #0a8754;
-  color: white;
-  font-size: 24px;
-  position: sticky;
-  top: 0;
-  z-index: 1000;
+* {
+  -webkit-tap-highlight-color: transparent;
 }
-    .toggle-dark { font-size: 20px; cursor: pointer; position: absolute; right: 16px; top: 50%; transform: translateY(-50%); color: white; }
-    .dark header { background-color: #1b263b; }
-    .toggle-dark:hover { color: #a1f0d1; }
-    .toggle-dark:active { transform: translateY(-50%) scale(0.9); color: #70cba0; }
-    .news-ticker { color: #0a8754; padding: 8px 16px; overflow: hidden; white-space: nowrap; font-size: 14px; font-weight: bold; }
-    .news-ticker .scrolling-text { display: inline-block; padding-left: 100%; animation: scroll-left 15s linear infinite; }
-    @keyframes scroll-left { 0% { transform: translateX(100%); } 100% { transform: translateX(-100%); } }
-    .dark .news-ticker { color: #00ff90; }
-    main, .matches-list, #beinPage, #bein720Page, #bein360Page, #bein244Page,
-    #entertainmentPage, #sscPage, #arabicPage, #mbcPage, #francePage,
-    #turkishPage, #kidsPage, #weyyakPage, #shahidPage {
-      padding: 20px;
-      display: none;
-    }
-    .menu-button {
-      background-color: white;
-      color: #0a8754;
-      border: 2px solid #0a8754;
-      border-radius: 8px;
-      padding: 12px;
-      font-size: 18px;
-      margin-bottom: 12px;
-      width: 100%;
-      cursor: pointer;
-      text-align: center;
-      transition: all 0.2s ease;
-    }
-    .menu-button:hover { background-color: #e7f7f1; }
-    .menu-button:active { transform: scale(0.95); background-color: #c9ebd8; }
-    .dark .menu-button { background-color: #1b263b; color: #00ffcc; border-color: #00c896; }
-    .dark .menu-button:hover { background-color: #153140; }
-    .dark .menu-button:active { background-color: #0f2535; }
-    .competition-title {
-      font-size: 20px;
-      font-weight: bold;
-      text-align: center;
-      margin-bottom: 15px;
-    }
-    .dark .competition-title { color: white; }
-    .back-button {
-      background-color: #0a8754;
-      color: white;
-      margin-top: 30px;
-    }
-    .match {
-      background-color: #ffffff;
-      border: 1px solid #0a8754;
-      margin-bottom: 20px;
-      border-radius: 15px;
-      padding: 16px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      flex-wrap: wrap;
-      transition: all 0.2s ease;
-      cursor: pointer;
-    }
-    .match:hover { background-color: #f5fdfa; transform: translateY(-3px); }
-    .match:active { transform: scale(0.97); }
-    .dark .match { background-color: #1b263b; border: 1px solid #00ffcc; }
-    .dark .match:hover { background-color: #243447; }
-    .team { flex: 1 1 30%; display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .team img { width: 64px; height: 64px; object-fit: contain; }
-    .team-name { font-weight: bold; font-size: 16px; color: #222; }
-    .dark .team-name { color: white; }
-    .time-channel { flex: 1 1 40%; text-align: center; font-size: 16px; display: flex; flex-direction: column; gap: 10px; }
-    .match-info { display: flex; justify-content: space-between; font-size: 13px; color: #0b2545; font-weight: bold; gap: 10px; }
-    .dark .match-info { color: #ddd; }
-    .status-button { background-color: #00ffcc; border: none; padding: 6px 12px; font-size: 14px; border-radius: 10px; font-weight: bold; margin-top: 6px; }
-    .dark .status-button { color: black; }
-    nav {
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      background-color: #0a8754;
-      display: flex;
-      justify-content: space-around;
-      padding: 10px 0;
-      transition: all 0.3s ease;
-    }
-    nav a {
-      text-decoration: none;
-      font-size: 14px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      color: #ccc;
-      padding: 6px 10px;
-      border-radius: 8px;
-    }
-    nav a:hover { transform: translateY(-2px); }
-    nav a:active { transform: scale(1.1); }
-    nav a.active { color: white; font-weight: 700; }
-    nav a i { font-size: 20px; margin-bottom: 4px; color: inherit; }
-    .dark nav { background-color: #1b263b; }
-    .dark nav a { color: #00ff90; }
-    .dark nav a i { color: #00ff90; }
-    .dark nav a.active { color: #00ff90; }
-    .dark nav a.active i { color: #00ff90; }
-    .dark nav a:not(.active) { color: #888 !important; }
-    .dark nav a:not(.active) i { color: #888 !important; }
-    .hidden-nav { display: none !important; }
-  
-.matches-list { padding-bottom: 120px; }
 
-main#home { padding-bottom: 100px; }
+    * { margin: 0; padding: 0; box-sizing: border-box; font-family: Arial, sans-serif; }
+    body { background-color: #ffffff; color: #333; user-select: none; }
+    header { display: flex; justify-content: center; align-items: center; padding: 16px; background-color: #0a8754; color: white; font-size: 24px; position: sticky; top: 0; z-index: 1000; }
+    nav { position: fixed; bottom: 0; width: 100%; background-color: #0a8754; display: flex; justify-content: space-around; padding: 10px 0; }
+    
+nav a {
+  text-decoration: none;
+  font-size: 14px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  color: #cccccc;
+  transition: color 0.3s ease, transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+nav a i {
+  font-size: 20px;
+  margin-bottom: 4px;
+}
+nav a.active {
+  font-weight: bold;
+  color: white;
+}
+
+nav a:active {
+  transform: scale(0.95);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+    section { display: none; padding: 20px; }
+    section.active { display: block; }
+    
+.channel-card, .match-card {
+  border: 2px solid #0a8754;
+  padding: 12px;
+  border-radius: 12px;
+  margin: 10px 0;
+  text-align: center;
+  background-color: #ffffff;
+  font-size: 16px;
+  color: #0a8754;
+  font-weight: bold;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.channel-card:active, .match-card:active {
+  transform: scale(0.96);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.channel-card:active, .match-card:active {
+  transform: scale(0.96);
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+    .back-button { display: inline-block; margin-bottom: 15px; padding: 8px 16px; background-color: #0a8754; color: white; border: none; border-radius: 5px; cursor: pointer; font-size: 14px; }
+    .match-teams, .match-info { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+    .match-status { background-color: #e0e0e0; border-radius: 10px; padding: 4px 12px; display: inline-block; font-size: 14px; }
+  </style>
+<style>
+  .news-card {
+    background: #fff;
+    border-radius: 12px;
+    box-shadow: 0 1px 5px rgba(0,0,0,0.1);
+    overflow: hidden;
+    margin: 15px 0;
+    font-family: Arial, sans-serif;
+  }
+  .news-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+  .news-content {
+    padding: 10px 15px;
+  }
+  .news-title {
+    margin: 0;
+    font-size: 18px;
+    color: #222;
+    font-weight: bold;
+    text-align: right;
+  }
+  .news-text {
+    font-size: 14px;
+    color: #555;
+    text-align: right;
+    margin: 6px 0;
+  }
+  .news-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #888;
+    font-size: 13px;
+    margin-top: 8px;
+  }
+  .news-icons i {
+    margin-left: 5px;
+  }
+</style>
+<style>
+  .news-card:last-child {
+    margin-bottom: 80px;
+  }
+</style>
+<style>
+  .match-card:last-child {
+    margin-bottom: 80px;
+  }
+</style>
+<style>
+  .news-icons {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #000;
+  }
+  .news-icons span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+  }
+</style>
+<style>
+  .news-icons {
+    display: flex;
+    gap: 10px;
+    font-size: 14px;
+    color: #000;
+  }
+  .news-icons span {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    cursor: pointer;
+  }
+  .like-btn.active {
+    color: green;
+  }
+  .dislike-btn.active {
+    color: red;
+  }
+</style>
+<style>
+  .news-icons .view-count {
+    pointer-events: none;
+    user-select: none;
+    opacity: 0.8;
+  }
 </style>
 </head>
 <body>
-<script>
-  function crashNow() {
-    alert("تم اكتشاف محاولة سرقة البث");
-    while (true) { document.body.innerHTML += Math.random(); }
-  }
-
-  const ua = navigator.userAgent.toLowerCase();
-  const badUA = ["httpcanary", "packet capture", "fiddler", "charles", "wireshark", "mitm"];
-
-  // إذا اكتشف أداة مراقبة شبكة معروفة
-  const isSpyTool = badUA.some(term => ua.includes(term));
-
-  if (isSpyTool) {
-    crashNow();
-  }
-</script>
-<header>
-<span>GOL TV</span>
-<i class="fas fa-moon toggle-dark" onclick="toggleDarkMode()" title="تبديل الوضع"></i>
+<header><span>GOL TV</span>
+<a href="#" id="telegramLink" style="position: absolute; top: 16px; left: 16px; color: white; font-size: 20px;" target="_blank">
+<i class="fab fa-telegram-plane"></i>
+</a>
 </header>
-<div class="news-ticker">
-<div class="scrolling-text">مرحبًا بكم في GOL TV - تابع أهم المباريات والأخبار الرياضية لحظة بلحظة.</div>
-</div>
-<main id="home" style="display:block;">
-<div class="menu-button" onclick="showSection('beinPage')">beIN SPORTS (HD)</div>
-<div class="menu-button" onclick="showSection('bein720Page')">beIN SPORTS (SD)</div>
-<div class="menu-button" onclick="showSection('bein360Page')">beIN SPORTS (LOW)</div>
-<div class="menu-button" onclick="showSection('sscPage')">SSC SPORTS (HD)</div>
-<div class="menu-button" onclick="showSection('sscSDPage')">SSC SPORTS (SD)</div>
-<div class="menu-button" onclick="showSection('entertainmentPage')">beIN ENTERTAINMENT</div>
-<div class="menu-button" onclick="showSection('arabicPage')">ARABIC CHANNELS</div>
-<div class="menu-button" onclick="showSection('mbcPage')">MBC CHANNELS</div>
-</main>
-<!-- صفحات كل الباقات - مثال واحد لكل منها بنفس التنسيق -->
-<div id="beinPage">
-<div class="competition-title">beIN SPORTS (HD)</div>
-<div class="menu-button" onclick="window.location.href='go:beinhd1'">beIN SPORTS 1 HD</div>
-<div class="menu-button" onclick="window.location.href='go:beinhd2'">beIN SPORTS 2 HD</div>
-<div class="menu-button" onclick="window.location.href='go:beinhd3'">beIN SPORTS 3 HD</div>
-<div class="menu-button" onclick="window.location.href='go:beinhd4'">beIN SPORTS 4 HD</div>
-<div class="menu-button" onclick="window.location.href='go:beinhd5'">beIN SPORTS 5 HD</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="bein720Page">
-<div class="competition-title">beIN SPORTS (SD)</div>
-<div class="menu-button" onclick="window.location.href='go:beinsd1'">beIN SPORTS 1 SD</div>
-<div class="menu-button" onclick="window.location.href='go:beinsd2'">beIN SPORTS 2 SD</div>
-<div class="menu-button" onclick="window.location.href='go:beinsd3'">beIN SPORTS 3 SD</div>
-<div class="menu-button" onclick="window.location.href='go:beinsd4'">beIN SPORTS 4 SD</div>
-<div class="menu-button" onclick="window.location.href='go:beinsd5'">beIN SPORTS 5 SD</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="bein360Page">
-<div class="competition-title">beIN SPORTS (LOW)</div>
-<div class="menu-button" onclick="window.location.href='go:beinlo1'">beIN SPORTS 1 LOW</div>
-<div class="menu-button" onclick="window.location.href='go:beinlo2'">beIN SPORTS 2 LOW</div>
-<div class="menu-button" onclick="window.location.href='go:beinlo3'">beIN SPORTS 3 LOW</div>
-<div class="menu-button" onclick="window.location.href='go:beinlo4'">beIN SPORTS 4 LOW</div>
-<div class="menu-button" onclick="window.location.href='go:beinlo5'">beIN SPORTS 5 LOW</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="entertainmentPage">
-<div class="competition-title">قنوات beIN ENTERTAINMENT</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">beIN MOVIES 1</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">beIN SERIES</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">beIN DRAMA</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="sscPage">
-<div class="competition-title">SSC HD</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 1</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 2</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 3</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 4</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 5</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC EXTRA 1</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC EXTRA 2</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="mbcPage">
-<div class="competition-title">MBC CHANNELS</div>
-<div class="menu-button" onclick="window.location.href='go:mbc1'">mbc 1</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc 2</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc 3</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc 4</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc 5</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc masr 1</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc masr 2</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc iraq</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">mbc action</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="arabicPage">
-<div class="competition-title">قنوات beIN ENTERTAINMENT</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">رياضة عربية</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<div id="sscSDPage">
-<div class="competition-title">SSC SD</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 1 SD</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 2 SD</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 3 SD</div>
-<div class="menu-button" onclick="window.location.href='go:laiv'">SSC 4 SD</div>
-<div class="menu-button back-button" onclick="showSection('home')">
-<i class="fas fa-arrow-right" style="margin-left: 8px;"></i> العودة إلى الرئيسية
-</div>
-</div>
-<!-- كرر على نفس النمط لجميع الباقات الأخرى -->
-<div class="matches-list" id="schedule">
-<div class="competition-title">مباريات اليوم</div>
-<div class="match" onclick="openPopup()">
-<div class="team">
-<img alt="أرسنال" src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"/>
-<div class="team-name">أرسنال</div>
-</div>
-<div class="time-channel">
-<strong style="font-size: 14px; color: white; font-weight: bold;">الدوري الإنجليزي الممتاز</strong><div style="font-size: 16px; color: white; font-weight: bold;">07:00 م</div>
-<div class="match-info">
-<span>المعلق : عصام الشوالي</span>
-<span>القناة: beIN Sports 1</span>
-</div>
-<div class="status-button">سيبدأ قريباً</div>
-</div>
-<div class="team">
-<img alt="ليفربول" src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"/>
-<div class="team-name">ليفربول</div>
-</div>
-</div>
-<div class="match" onclick="openPopup()">
-<div class="team">
-<img alt="أرسنال" src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"/>
-<div class="team-name">أرسنال</div>
-</div>
-<div class="time-channel">
-<strong style="font-size: 14px; color: white; font-weight: bold;">الدوري الإنجليزي الممتاز</strong><div style="font-size: 16px; color: white; font-weight: bold;">07:00 م</div>
-<div class="match-info">
-<span>المعلق : عصام الشوالي</span>
-<span>القناة: beIN Sports 1</span>
-</div>
-<div class="status-button">سيبدأ قريباً</div>
-</div>
-<div class="team">
-<img alt="ليفربول" src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"/>
-<div class="team-name">ليفربول</div>
-</div>
-</div><div class="match" onclick="openPopup()">
-<div class="team">
-<img alt="أرسنال" src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"/>
-<div class="team-name">أرسنال</div>
-</div>
-<div class="time-channel">
-<strong style="font-size: 14px; color: white; font-weight: bold;">الدوري الإنجليزي الممتاز</strong><div style="font-size: 16px; color: white; font-weight: bold;">07:00 م</div>
-<div class="match-info">
-<span>المعلق : عصام الشوالي</span>
-<span>القناة: beIN Sports 1</span>
-</div>
-<div class="status-button">سيبدأ قريباً</div>
-</div>
-<div class="team">
-<img alt="ليفربول" src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"/>
-<div class="team-name">ليفربول</div>
-</div>
-</div><div class="match" onclick="openPopup()">
-<div class="team">
-<img alt="أرسنال" src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"/>
-<div class="team-name">أرسنال</div>
-</div>
-<div class="time-channel">
-<strong style="font-size: 14px; color: white; font-weight: bold;">الدوري الإنجليزي الممتاز</strong><div style="font-size: 16px; color: white; font-weight: bold;">07:00 م</div>
-<div class="match-info">
-<span>المعلق : عصام الشوالي</span>
-<span>القناة: beIN Sports 1</span>
-</div>
-<div class="status-button">سيبدأ قريباً</div>
-</div>
-<div class="team">
-<img alt="ليفربول" src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"/>
-<div class="team-name">ليفربول</div>
-</div>
-</div><div class="match" onclick="openPopup()">
-<div class="team">
-<img alt="أرسنال" src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"/>
-<div class="team-name">أرسنال</div>
-</div>
-<div class="time-channel">
-<strong style="font-size: 14px; color: white; font-weight: bold;">الدوري الإنجليزي الممتاز</strong><div style="font-size: 16px; color: white; font-weight: bold;">07:00 م</div>
-<div class="match-info">
-<span>المعلق : عصام الشوالي</span>
-<span>القناة: beIN Sports 1</span>
-</div>
-<div class="status-button">سيبدأ قريباً</div>
-</div>
-<div class="team">
-<img alt="ليفربول" src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"/>
-<div class="team-name">ليفربول</div>
-</div>
-</div><div class="match" onclick="openPopup()">
-<div class="team">
-<img alt="أرسنال" src="https://upload.wikimedia.org/wikipedia/en/5/53/Arsenal_FC.svg"/>
-<div class="team-name">برشلونة</div>
-</div>
-<div class="time-channel">
-<strong style="font-size: 14px; color: white; font-weight: bold;">الدوري الإنجليزي الممتاز</strong><div style="font-size: 16px; color: white; font-weight: bold;">07:00 م</div>
-<div class="match-info">
-<span>المعلق : عصام الشوالي</span>
-<span>القناة: beIN Sports 1</span>
-</div>
-<div class="status-button">سيبدأ قريباً</div>
-</div>
-<div class="team">
-<img alt="ليفربول" src="https://upload.wikimedia.org/wikipedia/en/0/0c/Liverpool_FC.svg"/>
-<div class="team-name">ريال مدريد</div>
-</div>
-</div></div>
-<nav id="bottomNav">
-<a class="active" href="#" id="nav-home" onclick="showSection('home', this)">
-<i class="fas fa-home"></i>الرئيسية
-    </a>
-<a href="#" id="nav-schedule" onclick="showSection('schedule', this)">
-<i class="fas fa-calendar-alt"></i>الجدول
-    </a>
-</nav>
-<script>
-    function toggleDarkMode() {
-  document.body.classList.toggle('dark');
-  localStorage.setItem('darkMode', document.body.classList.contains('dark') ? 'on' : 'off');
+<style>
+.news-ticker {
+  width: 100%;
+  color: #0a8754;
+  font-weight: bold;
+  font-size: 16px;
+  overflow: hidden;
+  height: 35px;
+  background-color: transparent;
+  display: none;
+  position: relative;
 }
-
-    function showSection(id, el = null) {
-  const sections = [
-    'home', 'schedule', 'beinPage', 'bein720Page', 'bein360Page', 'bein244Page',
-    'entertainmentPage', 'sscPage', 'sscSDPage', 'arabicPage', 'mbcPage',
-    'francePage', 'turkishPage', 'kidsPage', 'weyyakPage', 'shahidPage'
-  ];
-  sections.forEach(sec => {
-    const e = document.getElementById(sec);
-    if (e) e.style.display = 'none';
+.scrolling-text {
+  display: inline-block;
+  white-space: nowrap;
+  padding-left: 100%;
+  animation: scroll-text 10s linear infinite;
+}
+@keyframes scroll-text {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
+</style>
+<div class="news-ticker" id="newsTicker">
+<div class="scrolling-text" id="liveTicker"></div>
+</div>
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+  firebase.database().ref("telegramLink").on("value", function(snap) {
+    const link = snap.val();
+    if (link) {
+      document.getElementById("telegramLink").href = link;
+    }
   });
 
-  const current = document.getElementById(id);
-  if (current) current.style.display = 'block';
-
-  const nav = document.getElementById('bottomNav');
-  if (id === 'home' || id === 'schedule') {
-    nav.classList.remove('hidden-nav');
-  } else {
-    nav.classList.add('hidden-nav');
-  }
-
-  document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
-  if (el) {
-    el.classList.add('active');
-  } else if (id === 'home') {
-    document.getElementById('nav-home').classList.add('active');
-  } else if (id === 'schedule') {
-    document.getElementById('nav-schedule').classList.add('active');
-  }
-}
-
-    // إظهار الصفحة الرئيسية عند التحميل
-    showSection('home', document.getElementById('nav-home'));
-  </script>
+    const bar = document.getElementById("newsTicker");
+    const text = document.getElementById("liveTicker");
+    firebase.database().ref("liveTicker").on("value", function (snap) {
+      const val = snap.val();
+      if (val && val.trim() !== "") {
+        text.textContent = val;
+        bar.style.display = "flex";
+      } else {
+        text.textContent = "";
+        bar.style.display = "none";
+      }
+    });
+  });
+</script>
+<section class="active" id="home"><div id="channelsContainer"></div></section>
+<section id="channels"><button class="back-button" onclick="showSection('home')">رجوع</button></section>
+<section id="schedule"><h2 style="text-align:center;">جدول مباريات اليوم</h2></section>
+</div>
+<nav>
+<a class="active" href="#" onclick="showSection('home', this)"><i class="fas fa-home"></i>الرئيسية</a>
+<a href="#" onclick="showSection('schedule', this)"><i class="fas fa-calendar-alt"></i>الجدول</a>
+<a href="#" onclick="showSection('news', this)">
+<i class="fas fa-newspaper"></i>الأخبار
+    </a>
+</nav>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.22.2/firebase-database-compat.js"></script>
 <script>
-  // إذا في سكربت فوق، خليه مثل ما هو
+    const firebaseConfig = {
+      apiKey: "AIzaSyAGIE3ayPY-TZHyG3f5UNt8l0eG66e9akc",
+      authDomain: "goltv-f1472.firebaseapp.com",
+      databaseURL: "https://goltv-f1472-default-rtdb.firebaseio.com",
+      projectId: "goltv-f1472",
+      storageBucket: "goltv-f1472.appspot.com",
+      messagingSenderId: "816449168076",
+      appId: "1:816449168076:web:3e50606f97ca5bd68a9869"
+    };
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
 
-  // حفظ تفعيل الوضع الداكن عند العودة للتطبيق
-  window.onload = function() {
-    if (localStorage.getItem('darkMode') === 'on') {
-      document.body.classList.add('dark');
+    function showSection(id, el = null) {
+      document.querySelectorAll('section').forEach(sec => sec.classList.remove('active'));
+      document.getElementById(id).classList.add('active');
+      if (el) {
+        document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+        el.classList.add('active');
+      }
     }
+
+    
+    
+    db.ref('packages').on('value', snap => {
+      const container = document.getElementById('channelsContainer');
+      container.innerHTML = '';
+      snap.forEach(child => {
+        const div = document.createElement('div');
+        div.className = 'channel-card';
+        div.textContent = child.val().name;
+        div.onclick = () => showChannels(child.key);
+        container.appendChild(div);
+      });
+    });
+
+    function showChannels(packageId) {
+      showSection('channels');
+      const section = document.getElementById('channels');
+      section.innerHTML = '<button class="back-button" onclick="showSection(\'home\')">رجوع</button>';
+      db.ref('channels').orderByChild('packageId').equalTo(packageId).once('value', snap => {
+        snap.forEach(child => {
+          const ch = child.val();
+          const div = document.createElement('div');
+          div.className = 'channel-card';
+          div.textContent = ch.name;
+          div.onclick = () => {
+  if (ch.server1) {
+    window.location.href = `intent://openPlayer?url=${encodeURIComponent(ch.server1)}#Intent;scheme=custom;package=com.my.syriatv;end`;
+  } else {
+    alert("لا يوجد رابط متاح للقناة.");
+  }
+};
+          section.appendChild(div);
+        });
+      });
+    }
+
+    db.ref('matches').on('value', snap => {
+      const schedule = document.getElementById('schedule');
+      schedule.innerHTML = '<h2 style="text-align:center;">جدول مباريات اليوم</h2>';
+      snap.forEach(child => {
+        const m = child.val();
+        const matchDiv = document.createElement('div');
+        matchDiv.className = 'match-card';
+        matchDiv.innerHTML = `
+  <div class="match-teams" style="display: flex; justify-content: space-between; align-items: center; padding: 10px 0;">
+    <div style="text-align: center; flex: 1;">
+      <img src="${m.logo1 || ''}" style="height:50px; display:block; margin:auto;">
+      <div style="margin-top: 8px;">${m.team1}</div>
+    </div>
+    <div style="flex: 1; text-align: center;">
+      <div style="background-color: #f0f0f0; padding: 6px 12px; border-radius: 20px; display: inline-block;">${m.status}</div>
+    </div>
+    <div style="text-align: center; flex: 1;">
+      <img src="${m.logo2 || ''}" style="height:50px; display:block; margin:auto;">
+      <div style="margin-top: 8px;">${m.team2}</div>
+    </div>
+  </div>
+  <div class="match-info" style="justify-content: center; gap: 15px; color: #666; font-size: 14px;">
+    <span><i class="fas fa-trophy"></i> ${m.league}</span>
+  </div>
+  <div class="match-info" style="justify-content: center; gap: 15px; color: #666; font-size: 14px;">
+    <span><i class="fas fa-microphone"></i> ${m.commentator}</span>
+    <span style="margin-right: 20px;"><i class="fas fa-tv"></i> ${m.channel}</span>
+  </div>
+`;
+        matchDiv.onclick = () => {
+  if (m.server1) {
+    window.location.href = `intent://openPlayer?url=${encodeURIComponent(m.server1)}#Intent;scheme=custom;package=com.my.syriatv;end`;
+  } else {
+    alert("لا يوجد رابط متاح للمباراة.");
+  }
+};
+        schedule.appendChild(matchDiv);
+      });
+    });
+  </script>
+<style>
+  
+  
+  
+  
+  
+  .news-card.active 
+</style>
+<section id="news">
+<h2 style="text-align:center;">لا توجد أخبار حالياً</h2><div id="dynamicNewsContainer" style="display:none;"></div>
+</section>
+<script>
+  function incrementViewsAndRender(newsId, n, container) {
+    const newViews = (n.views || 0) + 1;
+    firebase.database().ref("news/" + newsId + "/views").set(newViews).then(() => {
+      const card = document.createElement("div");
+      card.className = "news-card";
+      card.innerHTML = \`
+        <img src="\${n.image}" alt="خبر رياضي" class="news-image">
+        <div class="news-content">
+          <h3 class="news-title">\${n.title}</h3>
+          <p class="news-text">\${n.content}</p>
+          <div class="news-footer">
+            <span>\${n.time || 'الآن'}</span>
+            <div class="news-icons">
+              <span class="view-count"><i class="fas fa-eye"></i> <span>\${newViews}</span></span>
+              <span class="dislike-btn" onclick="toggleDislike(this)">
+                <i class="fas fa-thumbs-down"></i> <span>\${n.dislikes || 0}</span>
+              </span>
+              <span class="like-btn" onclick="toggleLike(this)">
+                <i class="fas fa-thumbs-up"></i> <span>\${n.likes || 0}</span>
+              </span>
+            </div>
+          </div>
+        </div>\`;
+      container.insertBefore(card, container.firstChild);
+    });
+  }
+
+  firebase.database().ref("news").on("value", function(snap) {
+    const container = document.getElementById("dynamicNewsContainer");
+    container.innerHTML = "";
+    if (snap.exists()) {
+      container.style.display = "block";
+      snap.forEach(child => {
+        const n = child.val();
+        const key = child.key;
+        incrementViewsAndRender(key, n, container);
+      });
+    } else {
+      container.style.display = "none";
+    }
+  });
+</script>
+<script>
+  function toggleLike(button) {
+    const countSpan = button.querySelector("span");
+    let count = parseInt(countSpan.textContent);
+    const isActive = button.classList.toggle("active");
+    countSpan.textContent = isActive ? count + 1 : count - 1;
+  }
+
+  function toggleDislike(button) {
+    const countSpan = button.querySelector("span");
+    let count = parseInt(countSpan.textContent);
+    const isActive = button.classList.toggle("active");
+    countSpan.textContent = isActive ? count + 1 : count - 1;
   }
 </script>
-<!-- نافذة منبثقة لاختيار السيرفر -->
-<div id="popupOverlay" style="display:none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.7); z-index: 2000; justify-content: center; align-items: center;">
-<div style="background: white; color: #333; padding: 20px; border-radius: 15px; width: 90%; max-width: 400px; text-align: center; position: relative;">
-<h3 style="margin-bottom: 20px;">اختر سيرفر المشاهدة</h3>
-<button class="menu-button" onclick="window.location.href='go:server1'" style="margin-bottom: 10px;">سيرفر 1</button>
-<button class="menu-button" onclick="window.location.href='go:server2'" style="margin-bottom: 10px;">سيرفر 2</button>
-<button class="menu-button" onclick="window.location.href='go:server3'" style="margin-bottom: 10px;">سيرفر 3</button>
-<button class="menu-button back-button" onclick="closePopup()" style="margin-top: 15px;">
-<i class="fas fa-arrow-circle-right" style="margin-left:8px;"></i> العودة
-    </button>
-</div>
-</div>
 <script>
-  function openPopup() {
-    document.getElementById('popupOverlay').style.display = 'flex';
+  function formatPublishTime(timestamp) {
+    const then = new Date(timestamp);
+    let hours = then.getHours();
+    const minutes = then.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'م' : 'ص';
+    hours = hours % 12;
+    hours = hours ? hours : 12; // تحويل 0 إلى 12
+    return "تم النشر " + hours + ":" + minutes + " " + ampm;
   }
 
-  function closePopup() {
-    document.getElementById('popupOverlay').style.display = 'none';
-  }
+  firebase.database().ref("news").once("value", function(snap) {
+    const container = document.getElementById("dynamicNewsContainer");
+    container.innerHTML = "";
+    if (snap.exists()) {
+      container.style.display = "block";
+      const newsArray = [];
+      snap.forEach(child => {
+        newsArray.push(child.val());
+      });
+      newsArray.forEach(n => {
+        const card = document.createElement("div");
+        card.className = "news-card";
+        const timeText = formatPublishTime(n.timestamp || new Date());
+        card.innerHTML = `
+          <img src="${n.image}" alt="خبر رياضي" class="news-image">
+          <div class="news-content">
+            <h3 class="news-title">${n.title}</h3>
+            <p class="news-text">${n.content}</p>
+            <div class="news-footer">
+              <span class="news-time">${timeText}</span>
+              <div class="news-icons">
+                <span class="view-count"><i class="fas fa-eye"></i> <span>${n.views || 0}</span></span>
+                <span class="dislike-btn" onclick="toggleDislike(this)">
+                  <i class="fas fa-thumbs-down"></i> <span>${n.dislikes || 0}</span>
+                </span>
+                <span class="like-btn" onclick="toggleLike(this)">
+                  <i class="fas fa-thumbs-up"></i> <span>${n.likes || 0}</span>
+                </span>
+              </div>
+            </div>
+          </div>`;
+        container.insertBefore(card, container.firstChild);
+      });
+    } else {
+      container.style.display = "none";
+    }
+  });
+</script>
+
+
+<script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const video = document.getElementById("mainPlayer");
+    const serverButtons = document.getElementById("serverButtons");
+    const backButton = document.querySelector("#playerModal button[onclick='closePlayer()']");
+
+    function showControlsTemporarily() {
+      if (serverButtons && backButton) {
+        serverButtons.style.display = "flex";
+        backButton.style.display = "inline-block";
+        clearTimeout(window._hideControlsTimeout);
+        window._hideControlsTimeout = setTimeout(() => {
+          serverButtons.style.display = "none";
+          backButton.style.display = "none";
+        }, 3000);
+      }
+    }
+
+    if (video) {
+      video.addEventListener("click", showControlsTemporarily);
+      video.addEventListener("play", showControlsTemporarily);
+      showControlsTemporarily(); // تشغيل مبدئي
+    }
+  });
 </script>
 </body>
 </html>
