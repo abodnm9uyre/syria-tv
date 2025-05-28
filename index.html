@@ -278,11 +278,13 @@ nav a:active {
           div.className = 'channel-card';
           div.textContent = ch.name;
           div.onclick = () => {
-  if (ch.server1) {
-    window.location.href = `intent://openPlayer?url=${encodeURIComponent(ch.server1)}#Intent;scheme=custom;package=com.my.syriatv;end`;
-  } else {
-    alert("لا يوجد رابط متاح للقناة.");
-  }
+  const intentUrl = `intent://openPlayer?` +
+    `server1=${encodeURIComponent(ch.server1 || '')}&` +
+    `server2=${encodeURIComponent(ch.server2 || '')}&` +
+    `server3=${encodeURIComponent(ch.server3 || '')}&` +
+    `server4=${encodeURIComponent(ch.server4 || '')}` +
+    `#Intent;scheme=custom;package=com.my.syriatv;end`;
+  window.location.href = intentUrl;
 };
           section.appendChild(div);
         });
@@ -319,11 +321,13 @@ nav a:active {
   </div>
 `;
         matchDiv.onclick = () => {
-  if (m.server1) {
-    window.location.href = `intent://openPlayer?url=${encodeURIComponent(m.server1)}#Intent;scheme=custom;package=com.my.syriatv;end`;
-  } else {
-    alert("لا يوجد رابط متاح للمباراة.");
-  }
+  const intentUrl = `intent://openPlayer?` +
+    `server1=${encodeURIComponent(m.server1 || '')}&` +
+    `server2=${encodeURIComponent(m.server2 || '')}&` +
+    `server3=${encodeURIComponent(m.server3 || '')}&` +
+    `server4=${encodeURIComponent(m.server4 || '')}` +
+    `#Intent;scheme=custom;package=com.my.syriatv;end`;
+  window.location.href = intentUrl;
 };
         schedule.appendChild(matchDiv);
       });
